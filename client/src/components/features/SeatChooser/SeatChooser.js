@@ -13,7 +13,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io.connect('http://localhost:8000'));
+    setSocket(io.connect(process.env.PORT || 'http://localhost:8000'));
   }, []);
 
   if(socket !== null){
@@ -38,6 +38,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
       return <Button key={seatId} className="seats__seat" disabled color="secondary">{seatId}</Button>}
     else return <Button key={seatId} color="primary" className="seats__seat" outline onClick={(e) => updateSeat(e, seatId)}>{seatId}</Button>;
   };
+
 
   return (
     <div>

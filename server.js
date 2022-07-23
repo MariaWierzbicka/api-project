@@ -6,20 +6,16 @@ const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
 
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, '/client/build')));
-
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use((req, res, next) => {
   req.io = io;
   next();
 });
-
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
