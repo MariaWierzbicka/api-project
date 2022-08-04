@@ -23,7 +23,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
-mongoose.connect('mongodb://localhost:27017/NewWaveDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://m-01:VZ0h8vPfGSX8qIhY@cluster0.uyu87.mongodb.net/?retryWrites=true&w=majority', {dbName: "NewWaveDB", useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -33,7 +33,7 @@ db.on('error', err => console.log('Error ' + err));
 
 const server = app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running...');
-});
+}); 
 
 const io = socket(server);
 
