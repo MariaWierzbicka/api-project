@@ -14,6 +14,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
 
   useEffect(() => {
     setSocket(io.connect(process.env.PORT || 'http://localhost:8000'));
+    dispatch(loadSeatsRequest());
   }, []);
 
   if(socket !== null){
@@ -21,9 +22,7 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
       dispatch(loadSeats(seats));
     });
   }
-  useEffect(() => {
-    dispatch(loadSeatsRequest());
-  }, []);
+
   
   const isTaken = (seatId) => {
     return (seats.some(item => (item.seat === seatId && item.day === chosenDay)));
