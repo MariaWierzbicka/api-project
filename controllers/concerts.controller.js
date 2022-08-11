@@ -1,7 +1,15 @@
 const Concert = require('../models/concert.model');
+const Seat = require('../models/seat.model');
 
 exports.getAll = async (req, res) => {
   try {
+    const concerts = await Concert.find();
+    for(let con of concerts){
+      
+      const matchingSeats = await Seat.find({ day: con.day });
+      const tickets = 50 - matchingSeats.length;
+      await Concert.updateOne({ _id: con._id}, { $set: { tickets: tickets }});
+    }
     res.json(await Concert.find());
   }
   catch(err) {
