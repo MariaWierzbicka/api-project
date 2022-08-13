@@ -1,5 +1,6 @@
 const Testimonial = require('../models/testimonial.model');
 
+
 exports.getAll = async (req, res) => {
   try {
     res.json(await Testimonial.find());

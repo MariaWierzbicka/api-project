@@ -23,11 +23,12 @@ exports.postSeat = async (req, res) => {
 
   try{
     const { day, seat, client, email } = req.body;
-  
+
     const seatTaken = await Seat.findOne({day: req.body.day, seat: req.body.seat});
     if(seatTaken){
       res.status(400).json({ message: "The slot is already taken..." });
     } else {
+      
       const newSeat = new Seat({
         day: day, 
         seat: seat,
@@ -37,7 +38,7 @@ exports.postSeat = async (req, res) => {
 
       await newSeat.save();
       req.io.emit('seatsUpdated', await Seat.find());
-      res.json({ message: 'OK'});
+      res.json({ message: newSeat });
     }
   }
   catch(err) {
